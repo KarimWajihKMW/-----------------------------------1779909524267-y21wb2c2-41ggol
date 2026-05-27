@@ -52,6 +52,7 @@ const routes = {
   '/dashboard/reports': renderReports,
   '/dashboard/users': renderUsers,
   '/dashboard/settings': renderSettings,
+  '/android': renderAndroid,
   '/contact': renderContact
 };
 
@@ -86,6 +87,7 @@ function renderHome() {
           <div class="hero-actions">
             <a class="btn btn-primary route-link" href="/dashboard">افتح مركز القيادة</a>
             <a class="btn btn-brown route-link" href="/blind-grading">شاهد التصحيح الأعمى</a>
+            <a class="btn route-link" href="/android">تطبيق أندرويد متكامل</a>
           </div>
           <div class="stats-row">
             <div class="stat"><strong data-count="42">0</strong><span>فرع قابل للربط</span></div>
@@ -120,6 +122,7 @@ function renderHome() {
         ${feature('🔐','صلاحيات دقيقة','مدير مؤسسة، مدير فرع، مسؤول قسم، مصحح، محاسب وولي أمر بمستويات منفصلة.')}
         ${feature('📊','تقارير تشغيلية','مؤشرات حضور، اشتراكات، تحصيل، تقدم تصحيح، ومدارس معرضة للتأخر.')}
         ${feature('🧭','حركة 3D تفاعلية','واجهة تتفاعل مع التمرير والماوس لتقديم تجربة بيع وتعريف لا تُنسى.')}
+        ${feature('🤖','تطبيق أندرويد متكامل','تطبيق ميداني متصل بالنظام للمديرين والمحاسبين والمصححين مع إشعارات ومزامنة فورية.')}
       </div>
     </section>
     <section class="section workflow">
@@ -243,8 +246,44 @@ function dashboardShell(tab) {
 function kpi(title, value, note) { return `<div class="kpi"><span>${title}</span><strong>${value}</strong><p>${note}</p></div>`; }
 function userTable() { const users = [['مدير مؤسسة','كامل','نشط'],['محاسب فرع','فواتير فقط','نشط'],['مصحح أعمى','دفعات مجهولة','مؤقت'],['مدير قسم','طلاب وتقارير','نشط']]; return `<div class="responsive-table"><table><thead><tr><th>الدور</th><th>الصلاحية</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody>${users.map((u,i)=>`<tr><td>${u[0]}</td><td>${u[1]}</td><td><span class="badge">${u[2]}</span></td><td><div class="action-group"><button class="icon-btn">تعديل</button><button class="icon-btn">تعطيل</button></div></td></tr>`).join('')}</tbody></table></div>`; }
 
+function renderAndroid() {
+  const modules = [
+    ['📲', 'مزامنة حية مع لوحة التحكم', 'أي مدرسة أو اشتراك أو دفعة تصحيح يتم تحديثها من الهاتف تظهر فوراً في مركز القيادة.'],
+    ['🔔', 'إشعارات تشغيلية ذكية', 'تنبيهات تجديد الاشتراكات، الفواتير المتأخرة، اكتمال التصحيح، وطلبات اعتماد المدير.'],
+    ['🕶️', 'تصحيح أعمى من الموبايل', 'يعرض التطبيق أوراقاً مرمزة بلا اسم الطالب أو الفرع مع تتبع زمن التصحيح والمراجعة الثانية.'],
+    ['🔐', 'صلاحيات Android حسب الدور', 'مدير مؤسسة، مدير فرع، محاسب، مصحح وولي أمر؛ كل دور يرى أدواته فقط.']
+  ];
+  return pageShell('تطبيق أندرويد متكامل مع نظام نواة', 'مسار /android', `<div class="android-hero">
+    <div class="phone-mockup reveal" aria-label="معاينة تطبيق أندرويد">
+      <div class="phone-speaker"></div>
+      <div class="phone-screen">
+        <div class="app-top"><span>نواة Android</span><strong>متصل الآن</strong></div>
+        <div class="app-card primary"><small>اشتراك يحتاج متابعة</small><strong>أكاديمية النخبة</strong><span>تجديد خلال 12 يوم</span></div>
+        <div class="app-grid">
+          <div><strong>42</strong><span>مدرسة</span></div>
+          <div><strong>18.6k</strong><span>ورقة</span></div>
+        </div>
+        <div class="app-task"><span>🕶️</span><div><strong>دفعة تصحيح مجهولة</strong><small>76% مكتمل</small></div></div>
+        <div class="app-task"><span>💳</span><div><strong>فاتورة مفتوحة</strong><small>تم إرسال إشعار للمحاسب</small></div></div>
+        <div class="phone-nav"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="android-copy reveal">
+      <p class="lead">تطبيق أندرويد يعمل كامتداد ميداني للنظام: إدارة المدارس والاشتراكات والتصحيح الأعمى من الهاتف مع نفس البيانات والصلاحيات.</p>
+      <div class="integration-strip">
+        <span>API آمن</span><span>مزامنة فورية</span><span>وضع ميداني</span><span>إشعارات Push</span>
+      </div>
+      <div class="hero-actions"><a class="btn btn-primary route-link" href="/contact">اطلب تفعيل التطبيق</a><a class="btn route-link" href="/dashboard">شاهد تكامله مع اللوحة</a></div>
+    </div>
+  </div>
+  <div class="feature-grid android-modules">${modules.map(([icon, title, text]) => feature(icon, title, text)).join('')}</div>
+  <div class="sync-flow reveal">
+    ${['تسجيل دخول موحد', 'سحب الصلاحيات', 'قراءة وكتابة البيانات', 'إشعارات واعتمادات'].map((step, i) => `<div class="sync-step" data-step="0${i + 1}"><strong>${step}</strong><p>يتصل التطبيق بنواة الويب ليحافظ على مصدر بيانات واحد لكل الفروع والأقسام.</p></div>`).join('')}
+  </div>`, '<a class="btn route-link" href="/">عودة للرئيسية</a>');
+}
+
 function renderContact() {
-  return pageShell('احجز عرضاً لمؤسستك التعليمية', 'مسار /contact', `<div class="contact-grid"><div class="glass-card reveal" style="padding:1.4rem"><h3>ما الذي سنضبطه لك؟</h3><p>هيكل الفروع، خطط الاشتراك، صلاحيات الأقسام، دورة الفوترة، وسياسة التصحيح الأعمى.</p><div class="stats-row"><div class="stat"><strong>14</strong><span>يوم إطلاق</span></div><div class="stat"><strong>6</strong><span>مسارات تدريب</span></div></div></div><form class="contact-form reveal"><input class="input" required placeholder="اسم المؤسسة"><input class="input" required placeholder="رقم التواصل"><select class="select"><option>إدارة مدرسة واحدة</option><option>مجموعة مدارس وفروع</option><option>نظام تصحيح أعمى فقط</option></select><textarea rows="5" placeholder="اكتب عدد الفروع والأقسام واحتياج الاشتراكات"></textarea><button class="btn btn-primary" type="submit">إرسال طلب العرض</button></form></div>`);
+  return pageShell('احجز عرضاً لمؤسستك التعليمية', 'مسار /contact', `<div class="contact-grid"><div class="glass-card reveal" style="padding:1.4rem"><h3>ما الذي سنضبطه لك؟</h3><p>هيكل الفروع، خطط الاشتراك، صلاحيات الأقسام، دورة الفوترة، وسياسة التصحيح الأعمى.</p><div class="stats-row"><div class="stat"><strong>14</strong><span>يوم إطلاق</span></div><div class="stat"><strong>6</strong><span>مسارات تدريب</span></div></div></div><form class="contact-form reveal"><input class="input" required placeholder="اسم المؤسسة"><input class="input" required placeholder="رقم التواصل"><select class="select"><option>إدارة مدرسة واحدة</option><option>مجموعة مدارس وفروع</option><option>نظام تصحيح أعمى فقط</option><option>نظام ويب + تطبيق أندرويد متكامل</option></select><textarea rows="5" placeholder="اكتب عدد الفروع والأقسام واحتياج الاشتراكات"></textarea><button class="btn btn-primary" type="submit">إرسال طلب العرض</button></form></div>`);
 }
 function renderNotFound() { return pageShell('المسار غير موجود', '404', '<p class="lead">يمكنك العودة إلى مركز القيادة أو اختيار صفحة من القائمة.</p>', '<a class="btn btn-primary route-link" href="/">الرئيسية</a>'); }
 
