@@ -277,6 +277,34 @@ function renderAndroid() {
     </div>
   </div>
   <div class="feature-grid android-modules">${modules.map(([icon, title, text]) => feature(icon, title, text)).join('')}</div>
+  <section class="google-play-section reveal" aria-labelledby="gpTitle">
+    <div class="gp-copy">
+      <span class="eyebrow">متاح على Google Play</span>
+      <h2 id="gpTitle">حمّل تطبيق نواة لأندرويد الآن</h2>
+      <p class="lead">جرّب نواة من جيبك: إدارة الاشتراكات، متابعة الفروع، اعتماد الفواتير، والتصحيح الأعمى بهوية مخفية — كل ذلك بمزامنة فورية مع لوحة التحكم.</p>
+      <ul class="gp-meta">
+        <li><strong>4.8</strong><span>★ تقييم المستخدمين</span></li>
+        <li><strong>+10k</strong><span>تنزيل نشط</span></li>
+        <li><strong>Android 8+</strong><span>توافق واسع</span></li>
+        <li><strong>28MB</strong><span>حجم خفيف</span></li>
+      </ul>
+      <div class="gp-actions">
+        <a class="gp-badge" href="https://play.google.com/store" target="_blank" rel="noopener" aria-label="تنزيل من Google Play">
+          <span class="gp-badge-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="34" height="34" xmlns="http://www.w3.org/2000/svg"><path fill="#34A853" d="M7 4.5v39c0 .9.5 1.7 1.3 2.1L28 24 8.3 2.4C7.5 2.8 7 3.6 7 4.5z"/><path fill="#FBBC04" d="M34.6 17.6 28 24l6.6 6.4 7.1-4.1c2.1-1.2 2.1-4.4 0-5.6l-7.1-3.1z"/><path fill="#EA4335" d="M8.3 2.4 28 24l6.6-6.4L11.3 3.1c-1-.6-2.2-.5-3 .3l-.0 -.0z"/><path fill="#4285F4" d="M8.3 45.6 28 24l6.6 6.4-23.3 13.5c-.8.5-1.8.4-2.5-.3z"/></svg>
+          </span>
+          <span class="gp-badge-text"><small>تنزيل من</small><strong>Google Play</strong></span>
+        </a>
+        <a class="btn" href="https://play.google.com/store" target="_blank" rel="noopener">نسخة تجريبية مغلقة</a>
+      </div>
+    </div>
+    <div class="gp-visual" aria-hidden="true">
+      <div class="gp-qr">
+        <div class="gp-qr-frame">${Array.from({length:36}).map((_,i)=>`<span class="qr-dot${[0,1,4,5,6,7,9,10,12,14,16,17,18,21,22,25,27,28,30,32,34,35].includes(i%36)?' on':''}"></span>`).join('')}</div>
+        <p>امسح الكود من جوالك لفتح صفحة التطبيق على Google Play.</p>
+      </div>
+    </div>
+  </section>
   <div class="sync-flow reveal">
     ${['تسجيل دخول موحد', 'سحب الصلاحيات', 'قراءة وكتابة البيانات', 'إشعارات واعتمادات'].map((step, i) => `<div class="sync-step" data-step="0${i + 1}"><strong>${step}</strong><p>يتصل التطبيق بنواة الويب ليحافظ على مصدر بيانات واحد لكل الفروع والأقسام.</p></div>`).join('')}
   </div>`, '<a class="btn route-link" href="/">عودة للرئيسية</a>');
